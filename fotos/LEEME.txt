@@ -1,0 +1,11 @@
+Pon aquí las fotos de Kiara con estos nombres:
+
+  foto1.jpg  → marco grande (dorado)
+  foto2.jpg  → marco mediano (blanco)
+  foto3.jpg  → marco chico (madera)
+  foto4.jpg  → polaroid de la derecha
+  foto5.jpg  → polaroid de la izquierda
+  foto6.jpg  → solo en el álbum
+
+Puedes usar otros nombres o más fotos: cámbialos en js/contenido.js → RECUERDOS.fotos
+Consejo: que pesen menos de 500 KB cada una (así carga rápido en el celular).

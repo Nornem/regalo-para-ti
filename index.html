@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0b1534" />
+<title>Un escenario hecho para ti ♡</title>
+<meta property="og:title" content="Un escenario espera por ti ♡" />
+<meta property="og:description" content="Hecho con mucho cariño, para Kiara." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💗</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&family=Nunito:wght@400;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/estilos.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+  <!-- 🔐 pantalla de entrada -->
+  <div id="gate">
+    <p id="gTip">💻 Tip: se disfruta mucho más en una laptop</p>
+    <canvas id="gNet" aria-hidden="true"></canvas>
+    <div class="gCard">
+      <h1>Un escenario<br />espera por ti</h1>
+      <p class="gSub">Ingresa la clave para entrar</p>
+    </div>
+    <div id="gCodeWrap">
+      <div id="gCode">
+        <input inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code" aria-label="Dígito 1" />
+        <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Dígito 2" />
+        <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Dígito 3" />
+        <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Dígito 4" />
+        <span class="gDash">–</span>
+        <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Dígito 5" />
+        <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Dígito 6" />
+        <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Dígito 7" />
+        <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Dígito 8" />
+      </div>
+      <p id="gMsg" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div id="app"></div>
+
+  <header id="title">
+    <h1 id="heading"></h1>
+    <p id="subheading"></p>
+    <div id="counter">🥭 <span id="count">0</span> cosechados</div>
+    <button id="secretPill" type="button"></button>
+  </header>
+
+  <!-- indicadores flotantes de los puntos del mundo -->
+  <div id="labels"></div>
+  <button id="home" title="Vista general" aria-label="Vista general">⌂</button>
+
+  <div id="hint">
+    <span class="desk">Arrastra para girar · Clic derecho para moverte · Rueda para acercar · Toca los nombres para ir</span>
+    <span class="mob">Un dedo: girar · Dos dedos: mover y acercar</span>
+  </div>
+  <div id="toast"></div>
+  <div id="tooltip"></div>
+
+  <!-- panel del mango -->
+  <aside id="panel" aria-live="polite">
+    <button id="close" aria-label="Cerrar">×</button>
+    <div class="phead">
+      <div class="swatch" id="swatch"></div>
+      <div>
+        <p class="eyebrow" id="cat"></p>
+        <h2 id="variety"></h2>
+      </div>
+    </div>
+    <p id="question"></p>
+    <div id="locked">
+      <span class="lock">🔒</span>
+      <span id="lockedText"></span>
+    </div>
+    <blockquote id="reveal"></blockquote>
+    <p id="special"></p>
+    <button id="harvest">Cosechar y descubrir</button>
+    <button id="openSecret" hidden>💌 ¡Desbloqueaste un mensaje secreto! Ábrelo</button>
+  </aside>
+
+  <!-- panel de la mesa de cumpleaños -->
+  <aside id="cumple" aria-live="polite">
+    <button id="cumpleClose" class="x" aria-label="Cerrar">×</button>
+    <p class="eyebrow">🎂 Mesa de cumpleaños</p>
+    <h2 id="cTitulo"></h2>
+    <p id="cTexto"></p>
+    <p id="cFirma" hidden></p>
+    <div id="cCuenta" hidden>
+      <p id="cCuentaTxt"></p>
+      <div class="reloj">
+        <div><b id="cDias">0</b><small>días</small></div>
+        <div><b id="cHoras">0</b><small>horas</small></div>
+        <div><b id="cMin">0</b><small>min</small></div>
+        <div><b id="cSeg">0</b><small>seg</small></div>
+      </div>
+    </div>
+    <div id="cRespira" hidden><span></span><small>respira… y piensa en tu deseo</small></div>
+    <button id="cBtn"></button>
+    <button id="cHold" hidden>Mantén presionado para soplar 💨</button>
+    <p id="cHint" hidden></p>
+  </aside>
+
+  <!-- recuerdos: cartas, notas y fotos ampliadas -->
+  <div id="recuerdo" aria-hidden="true">
+    <div id="rBox">
+      <button id="rClose" class="x" aria-label="Cerrar">×</button>
+      <article id="rCarta" hidden>
+        <p class="eyebrow">💌 Una carta para ti</p>
+        <h3 id="rcTitulo"></h3>
+        <div id="rcPuerta" hidden>
+          <p id="rcPregunta"></p>
+          <div class="rcBotones">
+            <button id="rcAbrir"></button>
+            <button id="rcNo">Ahora no</button>
+          </div>
+        </div>
+        <p id="rcTexto"></p>
+        <p id="rcFirma"></p>
+      </article>
+      <article id="rNota" hidden>
+        <p id="rnTexto"></p>
+      </article>
+      <figure id="rFoto" hidden>
+        <img id="rfImg" alt="Recuerdo" />
+        <figcaption id="rfPie"></figcaption>
+      </figure>
+      <div class="rnav">
+        <button id="rPrev" aria-label="Anterior">‹</button>
+        <span id="rCount"></span>
+        <button id="rNext" aria-label="Siguiente">›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- mensaje secreto (cada 7 cosechas) -->
+  <div id="secreto" aria-hidden="true">
+    <div class="carta">
+      <button id="secClose" class="x" aria-label="Cerrar">×</button>
+      <p class="eyebrow">💌 Mensaje secreto <span id="secNum"></span></p>
+      <p id="secTexto"></p>
+      <div class="secnav">
+        <button id="secPrev" aria-label="Anterior">‹</button>
+        <button id="secOk">Guardar</button>
+        <button id="secNext" aria-label="Siguiente">›</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="loader"><div><span>🥭</span>Preparando tu escenario…</div></div>
+
+  <script type="module" src="js/acceso.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script>
+    setTimeout(() => {
+      if (!document.body.classList.contains('ready')) {
+        document.querySelector('#loader div').innerHTML =
+          '<span>🌧️</span>No se pudo cargar el escenario.<br><small>Ábrelo con Live Server (no con doble clic) y revisa tu conexión a internet.</small>';
+      }
+    }, 15000);
+  </script>
+</body>
+</html>
